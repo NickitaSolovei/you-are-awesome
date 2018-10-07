@@ -5,12 +5,11 @@ const createEnumerableProperty = (arg) => {
 };
 const createNotEnumerableProperty = (propertyName) => {
     Object.keys = function(object) {
-        var arrReturn = [];
-        for (var key in object) {
+        let arrReturn = [];
+        for (let key in object) {
             if (Object.prototype.hasOwnProperty.call(object, key) && (key != propertyName)) {
-                var val = object[key];
-                arrReturn.push(val);
-                
+                let val = object[key];
+                arrReturn.push(val); 
             }
         }
         return arrReturn;
@@ -19,19 +18,18 @@ const createNotEnumerableProperty = (propertyName) => {
     return propertyName;
 };
 const createProtoMagicObject = () => {
-    function fun (){
-    }
+    const fun = () => {}
     fun.prototype = fun.__proto__;
     return fun;
 };
 
 
 const incrementor = () => {
-    function counterFun() {
+    let counterFun = () => {
         incrementor.counter++;
         return counterFun;
-    };
-    counterFun.valueOf = function() { return incrementor.counter };
+    }
+    counterFun.valueOf = () => incrementor.counter;
     incrementor.counter++;   
     return counterFun;
 };
@@ -39,11 +37,11 @@ incrementor.counter = 0;
 
 
 const asyncIncrementor = () => {
-    function counterFun() {
+    let counterFun = () => {
         asyncIncrementor.counter++;
         return counterFun;
     };
-    counterFun.valueOf = function() { return asyncIncrementor.counter };
+    counterFun.valueOf = () => asyncIncrementor.counter
     asyncIncrementor.counter++;   
     return counterFun;
 };
@@ -51,16 +49,15 @@ asyncIncrementor.counter = 0;
 
 
 const createIncrementer = () => {
-    var arr = [];
-    for (var i = 0; i < 20; i++) {
+    let arr = [];
+    for (let i = 0; i < 20; i++) {
         arr[i] = i + 1;
     }
-    arr.next = function(){
-        var ret = arr.shift(); // удалим из начала массива первое значение и верем его в переменную
-        var obj = {value: ret};
+    arr.next = () => {
+        let ret = arr.shift(); // удалим из начала массива первое значение и верем его в переменную
+        let obj = {value: ret};
         return obj;
     }
-
     return arr;
 };
 
@@ -77,7 +74,7 @@ const returnBackInSecond = (param) => {
 const getDeepPropertiesCount = (MainObj) => {
     let counter = 0;
     function getDeepRecursion (obj) {
-        for (var key in obj) {
+        for (let key in obj) {
             counter++;
             getDeepRecursion(obj[key]);
         }     
@@ -87,7 +84,7 @@ const getDeepPropertiesCount = (MainObj) => {
 };
 const createSerializedObject = () => {
     let obj = {
-        str: "any",
+        str: "any", 
         toJSON: function() {
             return this.str;
         },
@@ -99,7 +96,7 @@ const createSerializedObject = () => {
 };
 const toBuffer = () => {};
 const sortByProto = (arr) => {
-    function compareNumeric(obj1, obj2) {
+    let compareNumeric = (obj1, obj2) => {
         if (obj1.__proto__ == obj2) {
             return -1;
         }
